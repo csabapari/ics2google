@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>Pari.ZimbraGoogle.Core</AssemblyName>
+    <RootNamespace>Pari.ZimbraGoogle.Core</RootNamespace>
+  </PropertyGroup>
+
+</Project>
