@@ -1,12 +1,20 @@
 ﻿using System;
+using Microsoft.Extensions.CommandLineUtils;
 
-namespace Pari.ZimbraGoogle.Console
+namespace Pari.Ics2Google.Console
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            System.Console.WriteLine("Hello World!");
+            var app = new CommandLineApplication();
+            app.Name = "ics2google";
+            app.HelpOption(Command.HelpOptions);
+
+            var listCommand = new ListCommand();
+            app.Command(listCommand.Name, listCommand.Configuration);
+
+            app.Execute(args);
         }
     }
 }

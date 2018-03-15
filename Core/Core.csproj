@@ -2,8 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <AssemblyName>Pari.ZimbraGoogle.Core</AssemblyName>
-    <RootNamespace>Pari.ZimbraGoogle.Core</RootNamespace>
+    <AssemblyName>Pari.Ics2Google.Core</AssemblyName>
+    <RootNamespace>Pari.Ics2Google.Core</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.32.2.1160" />
+    <PackageReference Include="Ical.Net" Version="4.0.6" />
+  </ItemGroup>
 
 </Project>
