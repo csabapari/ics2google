@@ -2,6 +2,7 @@
 using System.IO;
 using Microsoft.Extensions.CommandLineUtils;
 using Pari.Ics2Google.Core;
+using Pari.Ics2Google.Core.ListEvent;
 
 namespace Pari.Ics2Google.Console
 {
@@ -11,8 +12,11 @@ namespace Pari.Ics2Google.Console
 
         private const string IcsPathDescription = "The file path of the ics file exported from a calendar (like zimbra)";
 
-        public ListCommand() : base("list", "List the calendar events.")
+        private readonly IUseCase<IList<string>> listEventUseCase;
+
+        public ListCommand(IUseCase<IList<string>> listEventUseCase) : base("list", "List the calendar events.")
         {
+            this.listEventUseCase = listEventUseCase;
         }
 
         public override IList<Argument> Arguments()
@@ -40,9 +44,12 @@ namespace Pari.Ics2Google.Console
             
             System.Console.WriteLine(string.Format("Ics file path: {0}.", icsPath.Value));
 
-            CalendarReader reader = new CalendarReader();
-            reader.Read(icsPath.Value);
-            reader.ListAll();
+            IOutput<IList<string>> output = this.listEventUseCase.Execute(new ListEventInput(icsPath.Value));
+
+            foreach (string data in output.Data)
+            {
+                System.Console.WriteLine(data);
+            }
 
             return 0;
         }

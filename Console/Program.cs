@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.Extensions.CommandLineUtils;
+﻿using Microsoft.Extensions.CommandLineUtils;
+using Unity;
 
 namespace Pari.Ics2Google.Console
 {
@@ -7,14 +7,23 @@ namespace Pari.Ics2Google.Console
     {
         public static void Main(string[] args)
         {
-            var app = new CommandLineApplication();
-            app.Name = "ics2google";
-            app.HelpOption(Command.HelpOptions);
+            using (UnityContainer container = new UnityContainer())
+            {
+                container.RegisterUseCases()
+                    .RegisterCommands();
 
-            var listCommand = new ListCommand();
-            app.Command(listCommand.Name, listCommand.Configuration);
+                var app = new CommandLineApplication();
+                app.Name = "ics2google";
+                app.HelpOption(Command.HelpOptions);
 
-            app.Execute(args);
+                var listCommand = container.Resolve<ListCommand>();
+                app.Command(listCommand.Name, listCommand.Configuration);
+                var loadGoogleCommand = container.Resolve<LoadGoogleCalendarCommand>();
+                app.Command(loadGoogleCommand.Name, loadGoogleCommand.Configuration);
+
+                app.Execute(args);
+            }
+
         }
     }
 }
