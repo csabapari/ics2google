@@ -1,7 +1,10 @@
 ﻿
+using System.Collections.Generic;
+using Microsoft.Extensions.CommandLineUtils;
+
 namespace Pari.Ics2Google.Console
 {
-    public class Argument
+    public abstract class Argument
     {
         public Argument(string name, string description)
         {
@@ -12,5 +15,7 @@ namespace Pari.Ics2Google.Console
         public string Name { get; }
 
         public string Description { get; }
+
+        public abstract bool Validate(IDictionary<string, CommandArgument> arguments);
     }
 }

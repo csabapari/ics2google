@@ -17,6 +17,44 @@ namespace Pari.Ics2Google.Core.LoadGooleCalendar
                 ApplicationName = "ics2google",
             });
 
+            string workCalendarId = service.GetCalendarIdForName("csaba.pari.work");
+
+            Console.WriteLine("Work calendar id: {0}", workCalendarId);
+
+            // clear the calendar
+            service.Calendars.Delete(workCalendarId).Execute();
+
+            Calendar workCalendar = service.Calendars.Insert(new Calendar
+            {
+                Summary = "csapa.pari.work"
+            }).Execute();
+            workCalendarId = workCalendar.Id;
+
+            Event newEvent = new Event
+            {
+                Summary = "xavitest1",
+                Start = new EventDateTime
+                {
+                    DateTime = new DateTime(2018, 3, 17, 12, 0, 0),
+                    TimeZone = "Europe/Budapest"
+                },
+                End = new EventDateTime
+                {
+                    DateTime = new DateTime(2018, 3, 17, 13, 0, 0),
+                    TimeZone = "Europe/Budapest"
+                },
+                Attendees = new List<EventAttendee>
+                {
+                    new EventAttendee
+                    {
+                        Email = "csaba.pari@gmaill.com"
+                    }
+                }
+            };
+            EventsResource.InsertRequest insertRequest = service.Events.Insert(newEvent, workCalendarId);
+            newEvent = insertRequest.Execute();
+            Console.WriteLine("New event: {0}", newEvent.HtmlLink);
+
             EventsResource.ListRequest request = service.Events.List("primary");
             request.TimeMin = DateTime.Now;
             request.ShowDeleted = false;

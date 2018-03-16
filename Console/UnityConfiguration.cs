@@ -19,9 +19,12 @@ namespace Pari.Ics2Google.Console
 
         public static UnityContainer RegisterCommands(this UnityContainer container)
         {
-            container.RegisterType<ListCommand>(new InjectionFactory(c => new ListCommand(c.Resolve<IUseCase<IList<string>>>("ListEventUseCase"))));
+            container.RegisterType<ListCommand>(new InjectionFactory(c =>
+                new ListCommand(c.Resolve<IUseCase<IList<string>>>("ListEventUseCase"), c.Resolve<IcsPathArgument>())));
             container.RegisterType<LoadGoogleCalendarCommand>(new InjectionFactory(c =>
-                new LoadGoogleCalendarCommand(c.Resolve<IUseCase<string>>("LoadGoogleCalendarCommand"))));
+                new LoadGoogleCalendarCommand(c.Resolve<IUseCase<string>>("LoadGoogleCalendarCommand"), c.Resolve<ClientSecretArgument>())));
+            container.RegisterType<Import2GoogleCommand>(new InjectionFactory(c =>
+                new Import2GoogleCommand(c.Resolve<ClientSecretArgument>(), c.Resolve<IcsPathArgument>(), c.Resolve<GoogleCalendarArgument>())));
 
             return container;
         }
