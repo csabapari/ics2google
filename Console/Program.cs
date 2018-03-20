@@ -20,6 +20,8 @@ namespace Pari.Ics2Google.Console
                 app.Command(listCommand.Name, listCommand.Configuration);
                 var loadGoogleCommand = container.Resolve<LoadGoogleCalendarCommand>();
                 app.Command(loadGoogleCommand.Name, loadGoogleCommand.Configuration);
+                var import2GoogleCommand = container.Resolve<Import2GoogleCommand>();
+                app.Command(import2GoogleCommand.Name, import2GoogleCommand.Configuration);
 
                 app.Execute(args);
             }

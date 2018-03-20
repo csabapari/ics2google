@@ -2,7 +2,7 @@
 using System.IO;
 using Microsoft.Extensions.CommandLineUtils;
 
-namespace Pari.Ics2Google.Console
+namespace Pari.Ics2Google.Console.Arguments
 {
     public class IcsPathArgument : Argument
     {
@@ -10,7 +10,7 @@ namespace Pari.Ics2Google.Console
 
         private const string IcsPathDescription = "The file path of the ics file exported from a calendar (like zimbra)";
 
-        public IcsPathArgument() : base(IcsPathName, IcsPathDescription)
+        public IcsPathArgument() : base((string) IcsPathName, (string) IcsPathDescription)
         {
         }
 

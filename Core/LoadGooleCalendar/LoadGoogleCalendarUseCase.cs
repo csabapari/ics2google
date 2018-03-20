@@ -11,24 +11,20 @@ namespace Pari.Ics2Google.Core.LoadGooleCalendar
     {
         public override IOutput<string> DoExecute(LoadGoogleCalendarInput input)
         {
+            string calendarName = "csaba.pari.work";
+
             var service = new CalendarService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = input.Credential,
                 ApplicationName = "ics2google",
             });
 
-            string workCalendarId = service.GetCalendarIdForName("csaba.pari.work");
+            string workCalendarId = service.GetCalendarIdForName(calendarName);
 
             Console.WriteLine("Work calendar id: {0}", workCalendarId);
 
             // clear the calendar
-            service.Calendars.Delete(workCalendarId).Execute();
-
-            Calendar workCalendar = service.Calendars.Insert(new Calendar
-            {
-                Summary = "csapa.pari.work"
-            }).Execute();
-            workCalendarId = workCalendar.Id;
+            workCalendarId = service.ClearSecondaryCalendar(workCalendarId, calendarName);
 
             Event newEvent = new Event
             {

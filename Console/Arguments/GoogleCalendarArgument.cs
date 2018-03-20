@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Microsoft.Extensions.CommandLineUtils;
 
-namespace Pari.Ics2Google.Console
+namespace Pari.Ics2Google.Console.Arguments
 {
     public class GoogleCalendarArgument : Argument
     {
@@ -11,7 +9,7 @@ namespace Pari.Ics2Google.Console
 
         private const string GoogleCalendarDescription = "The name of the secondary google calendar the ics should be imported.";
 
-        public GoogleCalendarArgument() : base(GoogleCalendarName, GoogleCalendarDescription)
+        public GoogleCalendarArgument() : base((string) GoogleCalendarName, (string) GoogleCalendarDescription)
         {
         }
 

@@ -16,9 +16,22 @@ namespace Pari.Ics2Google.Core
             return entry?.Id;
         }
 
-        public static void ClearSecondaryCalendar(this CalendarService service, string calendarId)
+        /// <summary>
+        /// Deletes the secondary calendar with given calendar id. Then creates a new one with the given name
+        /// and retruns the id of the new one.
+        /// </summary>
+        public static string ClearSecondaryCalendar(this CalendarService service, string calendarId, string name)
         {
+            if (calendarId != null)
+            {
+                service.Calendars.Delete(calendarId).Execute();
+            }
 
+            Calendar calendar = service.Calendars
+                .Insert(new Calendar { Summary = name })
+                .Execute();
+
+            return calendar.Id;
         }
     }
 }

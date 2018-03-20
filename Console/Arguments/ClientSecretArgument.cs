@@ -7,7 +7,7 @@ using Google.Apis.Calendar.v3;
 using Google.Apis.Util.Store;
 using Microsoft.Extensions.CommandLineUtils;
 
-namespace Pari.Ics2Google.Console
+namespace Pari.Ics2Google.Console.Arguments
 {
     /// <summary>
     /// Handles the command line part of google calendar access. This means loading the client secret and creating the <see cref="UserCredential"/>.
@@ -18,7 +18,7 @@ namespace Pari.Ics2Google.Console
 
         private const string ClientSecretDescription = "Client secret required for google authentication.";
 
-        public ClientSecretArgument() : base(ClientSecretName, ClientSecretDescription)
+        public ClientSecretArgument() : base((string) ClientSecretName, (string) ClientSecretDescription)
         {
         }
 
@@ -27,7 +27,7 @@ namespace Pari.Ics2Google.Console
             if (!arguments.TryGetValue(ClientSecretName, out var clientSecretArgument) ||
                 clientSecretArgument == null || !clientSecretArgument.HasValue() || !File.Exists(clientSecretArgument.Value))
             {
-                System.Console.WriteLine(string.Format("{0} is invalid or missing. It should be a valid path to an ics file.", ClientSecretName));
+                System.Console.WriteLine(string.Format((string) "{0} is invalid or missing. It should be a valid path to an ics file.", (object) ClientSecretName));
                 return false;
             }
 
@@ -46,7 +46,7 @@ namespace Pari.Ics2Google.Console
             CommandArgument argument;
             if (!arguments.TryGetValue(ClientSecretName, out argument))
             {
-                throw new ArgumentException(string.Format("The arguments does not contain the {} parameter.", ClientSecretName), "arguments");
+                throw new ArgumentException(string.Format((string) "The arguments does not contain the {} parameter.", (object) ClientSecretName), "arguments");
             }
 
             string clientSecretPath = argument.Value;
